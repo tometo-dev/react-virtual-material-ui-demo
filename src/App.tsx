@@ -1,26 +1,37 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { createStyles, makeStyles, Theme } from "@material-ui/core/styles"
+import { Routes, Route } from "react-router-dom"
+
+import SimpleList from "./components/simple-list"
+import VirtualizedList from "./components/virtualized-list"
+
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    root: {
+      width: "100%",
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "center",
+    },
+    list: {
+      overflow: "auto",
+      maxHeight: 600,
+    },
+  })
+)
 
 function App() {
+  const classes = useStyles()
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className={classes.root}>
+      <div className={classes.list}>
+        <Routes>
+          <Route path="/" element={<VirtualizedList />} />
+          <Route path="/without-virtual" element={<SimpleList />} />
+        </Routes>
+      </div>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
